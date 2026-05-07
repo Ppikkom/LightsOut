@@ -5,6 +5,7 @@ public class GameEvent
 {
     private GameProcessor _processor;
     [SerializeField] private ScoreUI scoreUI;
+    [SerializeField] private ResultUI resultUI;
     [SerializeField] private TimerUI mainTimerUI;
     private int _score = 0;
 
@@ -47,7 +48,7 @@ public class GameEvent
         else if(state == GameState.Endless)
         {
             CheckHighScore();
-            UIManager.Instance.ShowUI(UIType.Result);
+            resultUI.ShowUI();
         }
     }
 

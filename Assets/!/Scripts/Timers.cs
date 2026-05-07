@@ -6,9 +6,6 @@ public class Timers : MonoBehaviour
 {
     [SerializeField] private TimerUI startTimer;
     [SerializeField] private TimerUI mainTimer;
-
-    [SerializeField] private GameObject pausePanel;
-
     void Start()
     {
         startTimer.ShowUI();

@@ -138,8 +138,6 @@ public class BlockCreator
         block.SetSpriteRenderer(activeColor, disabledColor);
         
         _processor.field.Add(coord, block);
-
-        Debug.Log("Test");
     }
 
     private bool IsBound(Vector2Int coord)

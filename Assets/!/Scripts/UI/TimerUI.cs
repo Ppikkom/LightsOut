@@ -15,9 +15,19 @@ public class TimerUI : BaseUI
     public System.Action onTimerEnd;
     private float timer = 0;
     
-    public void TimerStart() => timerCoroutine = StartCoroutine(Timer());
+    public void TimerStart()
+    {
+        StopTimerCoroutine();
+        ResetTimer();
+        timerCoroutine = StartCoroutine(Timer());
+    }
 
     public void TimerPause()
+    {
+        StopTimerCoroutine();
+    }
+
+    private void StopTimerCoroutine()
     {
         if(timerCoroutine == null) return;
         
@@ -32,6 +42,8 @@ public class TimerUI : BaseUI
         timerText.text = $"{(int)value}";
         CalculateFillAmount(value);
     }
+
+    private void ResetTimer() => SetTimer(timerSec);
 
     private void CalculateFillAmount(float value)
     {
