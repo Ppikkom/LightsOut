@@ -7154,6 +7154,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6525f020c2f359d4287bb08c6eaef077, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelUI
+  buttons: {fileID: 0}
+  objs: {fileID: 0}
   basicLevels:
   - {fileID: 558773625}
   - {fileID: 174714760}
@@ -9244,7 +9246,6 @@ GameObject:
   - component: {fileID: 1760310372}
   - component: {fileID: 1760310371}
   - component: {fileID: 1760310370}
-  - component: {fileID: 1760310369}
   - component: {fileID: 1760310368}
   m_Layer: 0
   m_Name: Managers
@@ -9265,18 +9266,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1296b3ab260c954a9ad9036efdffeb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundManager
---- !u!114 &1760310369
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1760310367}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f15937835026a6240a4b345c4092710e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UIManager
 --- !u!114 &1760310370
 MonoBehaviour:
   m_ObjectHideFlags: 0

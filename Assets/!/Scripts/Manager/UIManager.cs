@@ -14,7 +14,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    [SerializeField] private SerializedDictionary<UIType, GameObject> uiDict;
+    [SerializeField] private SerializedDictionary<UIType, BaseUI> uiDict;
 
     void Awake()
     {
@@ -25,17 +25,15 @@ public class UIManager : MonoBehaviour
         }
         else
             Destroy(gameObject);
-
-        uiDict = new SerializedDictionary<UIType, GameObject>();
     }
 
     public void ShowUI(UIType type)
     {
-        uiDict[type].SetActive(true);
+        uiDict[type].ShowUI();
     }
 
     public void HideUI(UIType type)
     {
-        uiDict[type].SetActive(false);
+        uiDict[type].HideUI();
     }
 }

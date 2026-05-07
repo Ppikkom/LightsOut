@@ -23,13 +23,10 @@ public class BlockCreator
         Vector2Int.up
     };
 
-    public BlockCreator(GameProcessor processor)
+
+    public void Init(GameProcessor processor)
     {
         _processor = processor;
-    }
-
-    public void Init()
-    {
         blocks = new Dictionary<Vector2Int, Block>();
 
         GetField();

@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class LevelUI : MonoBehaviour
+public class LevelUI : BaseUI
 {
     [SerializeField] private Button[] basicLevels;
     [SerializeField] private Button endlessButton;
@@ -13,6 +13,16 @@ public class LevelUI : MonoBehaviour
     {
         AddEndlessButtonEvent();
         EditBasicLevelButton();
+    }
+
+    public override void ShowUI()
+    {
+        base.ShowUI();
+    }
+
+    public override void HideUI()
+    {
+        base.HideUI();
     }
 
     private void EditBasicLevelButton()

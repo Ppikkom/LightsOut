@@ -3,57 +3,29 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TimerUI : MonoBehaviour
+public class TimerUI : BaseUI
 {
-    [SerializeField] private TextMeshProUGUI timerText;
-    [SerializeField] private Image timerBar;
-    private System.Action onTimerEnd;
-
     private enum TimerType {Start, InGame};
     [SerializeField] private TimerType timerType;
-
+    [SerializeField] private TextMeshProUGUI timerText;
+    [SerializeField] private Image timerBar;
     [SerializeField] private float timerSec;
-    private float timer = 0;
 
     private Coroutine timerCoroutine;
-
-    void Start()
-    {
-        
-    }
-
-    public void TimerStart()
-    {
-        
-        if(timerType == TimerType.Start)
-        {
-            //GameManager.Instance.SetGameState(GameState.Pause);
-        }
-        else if(timerType == TimerType.InGame)
-        {
-            //GameManager.Instance.SetGameState(GameState.Level);
-        }
-        
-        timerCoroutine = StartCoroutine(Timer());
-    }
+    public System.Action onTimerEnd;
+    private float timer = 0;
+    
+    public void TimerStart() => timerCoroutine = StartCoroutine(Timer());
 
     public void TimerPause()
     {
+        if(timerCoroutine == null) return;
+        
         StopCoroutine(timerCoroutine);
         timerCoroutine = null;
-
-        GameManager.Instance.SetGameState(GameState.Pause);
     }
 
-    public void TimerResume()
-    {
-        TimerStart();
-    }
-
-    public void AddTimerEndAction(System.Action action)
-    {
-        onTimerEnd += action;
-    }
+    public void TimerResume() => TimerStart();
     
     private void SetTimer(float value)
     {
@@ -73,12 +45,10 @@ public class TimerUI : MonoBehaviour
     {
         if(timerType == TimerType.Start)
         {
-            //GameManager.Instance.SetGameState(GameState.Basic);
             gameObject.SetActive(false);
         }
         else if(timerType == TimerType.InGame)
         {
-            //GameManager.Instance.SetGameState(GameState.Pause);
             Debug.Log("종료");
         }
         onTimerEnd?.Invoke();
@@ -86,9 +56,14 @@ public class TimerUI : MonoBehaviour
 
     private IEnumerator Timer()
     {
+        GameState state = GameManager.Instance.GameState;
         while(timer < timerSec)
         {
-            timer += Time.deltaTime;
+            if(state == GameState.Basic)
+                timer += Time.deltaTime;
+            else if(state == GameState.Endless)
+                timer += Time.unscaledDeltaTime;
+
             SetTimer(timerSec - timer);
             yield return null;    
         }    

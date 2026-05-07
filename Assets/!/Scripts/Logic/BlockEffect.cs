@@ -10,11 +10,10 @@ public class BlockEffect
 
     private Sequence sequence;
 
-    public BlockEffect(GameProcessor processor)
+    public void Init(GameProcessor processor)
     {
         _processor = processor;
     }
-
 
     public void BlockDownEffect()
     {

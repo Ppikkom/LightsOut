@@ -23,20 +23,18 @@ public class GameProcessor : MonoBehaviour
 
     private void InitializeGame()
     {
-        _event = new GameEvent(this);
-        _creator = new BlockCreator(this);
-        _effect = new BlockEffect(this);
-
         field = new Dictionary<Vector2Int, Block>();
 
         DataManager.Instance.SetData(DataType.CurScore, 0);
-        Creator.Init();
-        Event.Init();
+        
+        _creator.Init(this);
+        _event.Init(this);
+        _effect.Init(this);
     }
 
     private void StartGame()
     {
-        Effect.BlockDownEffect();
+        _effect.BlockDownEffect();
     }
 
     private void FinishGame()

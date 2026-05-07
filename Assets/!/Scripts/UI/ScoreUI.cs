@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 
-public class ScoreUI : MonoBehaviour
+public class ScoreUI : BaseUI
 {
     [SerializeField] private TextMeshProUGUI scoreText;
 
@@ -10,6 +10,15 @@ public class ScoreUI : MonoBehaviour
         CheckGameState();
     }
 
+    public override void ShowUI()
+    {
+        base.ShowUI();
+    }
+
+    public override void HideUI()
+    {
+        base.HideUI();
+    }
     private void CheckGameState()
     {
         GameState state = GameManager.Instance.GameState;

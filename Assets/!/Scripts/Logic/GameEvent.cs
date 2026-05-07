@@ -4,17 +4,15 @@ using UnityEngine;
 public class GameEvent
 {
     private GameProcessor _processor;
-    [SerializeField] private ScoreUI _scoreUI;
+    [SerializeField] private ScoreUI scoreUI;
+    [SerializeField] private TimerUI mainTimerUI;
     private int _score = 0;
 
-    public GameEvent(GameProcessor processor)
+    public void Init(GameProcessor processor)
     {
         _processor = processor;
-    }
 
-    public void Init()
-    {
-        
+        mainTimerUI.onTimerEnd += OnGameOverEvent;
     }
 
     public void OnGameClearEvent()
@@ -30,7 +28,9 @@ public class GameEvent
         }
         else if(state == GameState.Endless)
         {
-            _scoreUI.SetScoreText(++_score);
+            _score += 1;
+            scoreUI.SetScoreText(_score);
+            DataManager.Instance.SetData(DataType.CurScore, _score);
             _processor.Effect.HideBlockEffect();
         }
     }
@@ -46,7 +46,14 @@ public class GameEvent
         }
         else if(state == GameState.Endless)
         {
-            // 게임종료 화면 띄우기
+            CheckHighScore();
+            UIManager.Instance.ShowUI(UIType.Result);
         }
+    }
+
+    private void CheckHighScore()
+    {
+        int highScore = DataManager.Instance.GetData(DataType.HighScore);
+        if(_score > highScore) DataManager.Instance.SetData(DataType.HighScore, _score);
     }
 }
