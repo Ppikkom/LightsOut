@@ -1,9 +1,11 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.Localization.Settings;
 
 public class ScoreUI : BaseUI
 {
     [SerializeField] private TextMeshProUGUI scoreText;
+
 
     void Start()
     {
@@ -34,6 +36,7 @@ public class ScoreUI : BaseUI
 
     public void SetScoreText(int score)
     {
-        scoreText.text = $"Score : {score}";
+        string scoreLabel = LocalizationSettings.StringDatabase.GetLocalizedString(TableName, "Score");
+        scoreText.text = $"{scoreLabel} : {score}";
     }
 }

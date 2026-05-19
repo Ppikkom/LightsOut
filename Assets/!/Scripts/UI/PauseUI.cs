@@ -6,6 +6,7 @@ public class PauseUI : BaseUI
 {
     [SerializeField] private TimerUI mainTimer;
     [SerializeField] private Button pauseButton;
+    [SerializeField] private string text;
     private GameState tempState;
 
     void Start()
@@ -17,6 +18,7 @@ public class PauseUI : BaseUI
     {
         tempState = GameManager.Instance.GameState;
         objs.ShowUI();
+        EditText(text);
         mainTimer.TimerPause();
         objs.SetGridCellSize(3);
         objs.ShowButton(UIButtonType.Resume);

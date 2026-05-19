@@ -14,7 +14,6 @@ public struct LevelData
 
 public class LevelLoader
 {
-    //private List<int[][]> levelDatas = new List<int[][]>();
     private List<LevelData> levelDatas = new List<LevelData>();
 
     public void Init(TextAsset text)

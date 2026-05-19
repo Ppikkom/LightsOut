@@ -7,10 +7,14 @@ public class SwipeUI : MonoBehaviour
     [SerializeField] private RectTransform content;
     [SerializeField] private Scrollbar scrollBar;
     [SerializeField] private Transform[] circleContents;
+    [SerializeField] private Image[] circleImages;
     [SerializeField] private Button leftButton;
     [SerializeField] private Button rightButton;
     [SerializeField] private float swipeTime = 0.2f;
     [SerializeField] private float swipeDistance = 50f;
+
+    [SerializeField] private Sprite activeCircleSprite;
+    [SerializeField] private Sprite defaultCircleSprite;
     [SerializeField] private float circleContentScale = 1.2f;
 
     private float[] scrollPageValues;
@@ -122,14 +126,13 @@ public class SwipeUI : MonoBehaviour
         for(int i = 0; i < scrollPageValues.Length; i++)
         {
             circleContents[i].localScale = Vector2.one;
-            Color color = circleContents[i].GetComponent<Image>().color;
-            color = Color.white;
+            circleImages[i].sprite = defaultCircleSprite;
 
             if(scrollBar.value < scrollPageValues[i] + (valueDistance / 2) &&
                 scrollBar.value > scrollPageValues[i] - (valueDistance / 2))
             {
                 circleContents[i].localScale = Vector2.one * circleContentScale;
-                color = Color.black;
+                circleImages[i].sprite = activeCircleSprite;
             }
         }
     }

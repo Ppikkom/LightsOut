@@ -54,6 +54,5 @@ public class BlockEffect
         _processor.Creator.RebuildField();
         foreach(var v in _processor.field)
             v.Value.obj.SetActive(true);
-        Debug.Log("Count Tile" + _processor.field.Count);
     }
 }

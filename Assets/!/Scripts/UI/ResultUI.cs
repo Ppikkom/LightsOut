@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.Localization.Settings;
 
 public class ResultUI : BaseUI
 {
@@ -28,8 +29,11 @@ public class ResultUI : BaseUI
 
     public void SetScoreText()
     {
-        scoreText.text = $"Score : {DataManager.Instance.GetData(DataType.CurScore)}";
-        highScoreText.text = $"HighScore : {DataManager.Instance.GetData(DataType.HighScore)}";
+        string scoreLabel = LocalizationSettings.StringDatabase.GetLocalizedString(TableName, "Score");
+        string highScoreLabel = LocalizationSettings.StringDatabase.GetLocalizedString(TableName, "HighScore");
+
+        scoreText.text = $"{scoreLabel} : {DataManager.Instance.GetData(DataType.CurScore)}";
+        highScoreText.text = $"{highScoreLabel} : {DataManager.Instance.GetData(DataType.HighScore)}";
     }
 
     protected override void AddButtonEvnet()
@@ -46,13 +50,11 @@ public class ResultUI : BaseUI
 
     private void Restart()
     {
-        HideUI();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private void Quit()
     {
-        HideUI();
         GameManager.Instance.SetGameState(GameState.Title);
         SceneManager.LoadScene(0); // 0 -> Main
     }

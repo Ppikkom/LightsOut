@@ -3,9 +3,15 @@ using UnityEngine;
 public class DataService
 {
     private int[] Datas;
+    private const int MAXSTAGE = 27;
     public void Init()
     {
         Datas = new int[System.Enum.GetValues(typeof(DataType)).Length];
+
+        #if UNITY_EDITOR
+        //SetData(DataType.Lock, 2);
+        //Debug.Log("DataType.Lock : 2로 설정");
+        #endif
     }
 
     public void SetData(DataType type, int value)
@@ -22,4 +28,25 @@ public class DataService
         Debug.LogWarning("Not Found Key");
         return default;
     }
+
+    public void NextStage()
+    {
+        int level = Datas[(int)DataType.SelectLevel] + 1;
+        SetData(DataType.SelectLevel, level);
+    }
+
+    public void ClearStage()
+    {
+        int clearStage = Datas[(int)DataType.SelectLevel];
+        int lockLevel = GetData(DataType.Lock);
+
+        //Debug.Log(clearStage + " " + lockLevel);
+
+        if(clearStage + 1 != lockLevel || clearStage == MAXSTAGE) return;
+        lockLevel += 1;
+        //Debug.Log("현재 lock : " + lockLevel);
+        SetData(DataType.Lock, lockLevel);
+    }
+
+    public bool IsLastStage() => GetData(DataType.SelectLevel) == MAXSTAGE;
 }

@@ -6,7 +6,9 @@ public class GameEvent
     private GameProcessor _processor;
     [SerializeField] private ScoreUI scoreUI;
     [SerializeField] private ResultUI resultUI;
+    [SerializeField] private StageClearUI stageClearUI;
     [SerializeField] private TimerUI mainTimerUI;
+    [SerializeField] private GameOverUI gameOverUI;
     private int _score = 0;
 
     public void Init(GameProcessor processor)
@@ -19,20 +21,20 @@ public class GameEvent
     public void OnGameClearEvent()
     {
         GameState state = GameManager.Instance.GameState;
-
-        Debug.Log(state + " : 클리어 ");
+        mainTimerUI.TimerPause();
 
         if(state == GameState.Basic)
         {
-            // GameState 바꾸고
-            // Clear화면 띄우기
+            DataManager.Instance.ClearStage();
+            stageClearUI.ShowUI();
         }
         else if(state == GameState.Endless)
         {
             _score += 1;
-            scoreUI.SetScoreText(_score);
-            DataManager.Instance.SetData(DataType.CurScore, _score);
+            scoreUI.SetScoreText(_score);            
             _processor.Effect.HideBlockEffect();
+            DataManager.Instance.SetData(DataType.CurScore, _score);
+            SoundManager.Instance.PlaySfx(SfxType.FadeOut);
         }
     }
 
@@ -43,7 +45,7 @@ public class GameEvent
         // 필요하다면 GameState 바꾸기
         if(state == GameState.Basic)
         {
-            // 게임오버 화면 띄우기
+            gameOverUI.ShowUI();
         }
         else if(state == GameState.Endless)
         {

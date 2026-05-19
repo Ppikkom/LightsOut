@@ -1,9 +1,12 @@
+using TMPro;
 using UnityEngine;
 
 public class BaseUI : MonoBehaviour
 {
     [SerializeField] protected UIButtons buttons;
     [SerializeField] protected UIGameObjects objs;
+    [SerializeField] protected TextMeshProUGUI textMeshProUGUI;
+    protected const string TableName = "Table";
     public virtual void SetActive(bool flag)
     {
         gameObject.SetActive(flag);
@@ -17,6 +20,11 @@ public class BaseUI : MonoBehaviour
     protected virtual void RemoveButtonEvent()
     {
         
+    }
+
+    protected virtual void EditText(string s)
+    {
+        textMeshProUGUI.text = s;
     }
 
     public virtual void ShowUI()

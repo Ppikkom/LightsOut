@@ -3,26 +3,19 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class LevelUI : BaseUI
+public class LevelUI : MonoBehaviour
 {
     [SerializeField] private Button[] basicLevels;
+    [SerializeField] private Image[] images;
     [SerializeField] private Button endlessButton;
     [SerializeField] private TextMeshProUGUI[] texts;
+    [SerializeField] private Sprite locked;
+
 
     void Start()
     {
         AddEndlessButtonEvent();
         EditBasicLevelButton();
-    }
-
-    public override void ShowUI()
-    {
-        base.ShowUI();
-    }
-
-    public override void HideUI()
-    {
-        base.HideUI();
     }
 
     private void EditBasicLevelButton()
@@ -31,8 +24,26 @@ public class LevelUI : BaseUI
         {
             int value = i + 1;
             basicLevels[i].onClick.AddListener(() => OnBasicLevelButtonClick(value));
-            texts[i].text = $"{value}";
+            ChangeLockStageSprite(value);
         }
+    }
+
+    private void ChangeLockStageSprite(int idx)
+    {
+        int lockStage = DataManager.Instance.GetData(DataType.Lock);
+
+        if(idx < lockStage) // UnLock
+        {
+            texts[idx - 1].text = $"{idx}";
+            basicLevels[idx - 1].interactable = true;
+        }
+        else // Lock
+        {
+            texts[idx - 1].text = $"";
+            images[idx - 1].sprite = locked;
+            basicLevels[idx - 1].interactable = false;
+        }
+        
     }
 
     private void AddEndlessButtonEvent()

@@ -8,8 +8,8 @@ public class BlockCreator
 
     [SerializeField] private GameObject blockPrefab;
     [SerializeField] private Vector2 blockSpacing;
-    [SerializeField] private Color activeColor;
-    [SerializeField] private Color disabledColor;
+    [SerializeField] private Sprite activeSprite;
+    [SerializeField] private Sprite disabledSprite;
     [SerializeField] private float blockSize;
     
     private int[,] field;
@@ -44,6 +44,7 @@ public class BlockCreator
         SprialAlgorithm();
 
         _processor.Effect.ShowBlockEffect();
+        SoundManager.Instance.PlaySfx(SfxType.FadeIn);
     }
 
     private void GetField()
@@ -132,10 +133,10 @@ public class BlockCreator
         }
 
         
-        block.SetActiveFlag(field[coord.x, coord.y] == 1);
+        block.SetActiveFlag(field[coord.y, coord.x] == 1); // block.SetActiveFlag(field[coord.x, coord.y] == 1);
         block.SetTransform(_processor.transform, blockSize);
         block.SetPosition(FieldSize, blockSpacing, blockSize);
-        block.SetSpriteRenderer(activeColor, disabledColor);
+        block.SetSpriteRenderer(activeSprite, disabledSprite);
         
         _processor.field.Add(coord, block);
     }
@@ -148,14 +149,26 @@ public class BlockCreator
 
     private void OnClickBlock(Vector2Int coord)
     {
+        
         AddToggle(coord.x, coord.y);
         AddToggle(coord.x + 1, coord.y);
         AddToggle(coord.x - 1, coord.y);
         AddToggle(coord.x, coord.y + 1);
         AddToggle(coord.x, coord.y - 1);
 
+        PlaySfxSound(coord);
+
         if(CheckAllBlocksActive() == true)
             _processor.Event.OnGameClearEvent();
+    }
+
+    private void PlaySfxSound(Vector2Int coord)
+    {
+        bool isActive = _processor.field[coord].isActive;
+        if(isActive == true)
+            SoundManager.Instance.PlaySfx(SfxType.SwitchOn);
+        else
+            SoundManager.Instance.PlaySfx(SfxType.SwitchOff);
     }
 
     private void AddToggle(int x, int y)

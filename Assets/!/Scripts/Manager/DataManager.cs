@@ -19,11 +19,11 @@ public class DataManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
+
+            InitSubClass();
         }
         else
             Destroy(gameObject);
-
-        InitSubClass();
     }
     #endregion
 
@@ -37,6 +37,9 @@ public class DataManager : MonoBehaviour
     public void SetData(DataType type, int value) => Data.SetData(type, value);
     public int[][] GetBasicLevelField(int level) => Level.GetBasicLevelGrid(level);
     public int GetBasicLevelFieldSize(int level) => Level.GetBasicLevelFieldSize(level);
+    public void NextStage() => Data.NextStage();
+    public void ClearStage() => Data.ClearStage();
+    public bool IsLastStage() => Data.IsLastStage();
     
     #endregion
 

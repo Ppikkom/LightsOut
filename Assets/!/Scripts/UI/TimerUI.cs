@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class TimerUI : BaseUI
 {
-    private enum TimerType {Start, InGame};
+    private enum TimerType {Start, Main};
     [SerializeField] private TimerType timerType;
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private Image timerBar;
@@ -19,11 +19,12 @@ public class TimerUI : BaseUI
     {
         StopTimerCoroutine();
         ResetTimer();
-        timerCoroutine = StartCoroutine(Timer());
+        timerCoroutine = StartCoroutine(StartTimer());
     }
 
     public void TimerPause()
     {
+        if(GameManager.Instance.GameState == GameState.Endless) return;
         StopTimerCoroutine();
     }
 
@@ -49,7 +50,7 @@ public class TimerUI : BaseUI
     {
         if(timerType == TimerType.Start)
             timerBar.fillAmount = value - Mathf.Floor(value);
-        else if(timerType == TimerType.InGame)
+        else if(timerType == TimerType.Main)
             timerBar.fillAmount = value / timerSec;
     }
 
@@ -57,28 +58,49 @@ public class TimerUI : BaseUI
     {
         if(timerType == TimerType.Start)
         {
+            SoundManager.Instance.PlayBGM(BgmType.Ingame);
             gameObject.SetActive(false);
         }
-        else if(timerType == TimerType.InGame)
+        else if(timerType == TimerType.Main)
         {
             Debug.Log("종료");
         }
+        
+        if(buttons != null && GameManager.Instance.GameState == GameState.Endless) objs.HideUI();
+        
         onTimerEnd?.Invoke();
     }
 
-    private IEnumerator Timer()
+    private IEnumerator StartTimer()
     {
-        GameState state = GameManager.Instance.GameState;
+        int lastSecond = Mathf.CeilToInt(timerSec);
+
         while(timer < timerSec)
         {
-            if(state == GameState.Basic)
-                timer += Time.deltaTime;
-            else if(state == GameState.Endless)
-                timer += Time.unscaledDeltaTime;
+            timer += Time.unscaledDeltaTime;
+            float remainTime = Mathf.Max(0f, timerSec - timer);
+            SetTimer(remainTime);
 
-            SetTimer(timerSec - timer);
-            yield return null;    
-        }    
-        TimerEnd();   
+            if(timerType == TimerType.Start)
+                PlayCountDownSfx(remainTime, ref lastSecond);
+            
+            yield return null;
+        }
+
+        if(timerType == TimerType.Start)
+            SoundManager.Instance.PlaySfx(SfxType.CountDownComplete);
+
+        TimerEnd();
+    }
+
+    private void PlayCountDownSfx(float remainTime, ref int lastSecond)
+    {
+        int curruentSecond = Mathf.CeilToInt(remainTime);
+
+        if(curruentSecond < lastSecond && curruentSecond > 0)
+        {
+            SoundManager.Instance.PlaySfx(SfxType.CountDown);
+            lastSecond = curruentSecond;
+        }
     }
 }
