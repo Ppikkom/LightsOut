@@ -13,9 +13,17 @@ public class LanguageUI : MonoBehaviour
 
     void Start()
     {
-        ChangeLanguage(LanguageType.Eng);
+        InitLocalize();
         InitButtonEvent();
         ChangeButtonSprite();
+    }
+
+    private void InitLocalize()
+    {
+        if(DataManager.Instance.HasData(DataType.Language))
+            ChangeLanguage((LanguageType)DataManager.Instance.GetData(DataType.Language));
+        else
+            ChangeLanguage(LanguageType.Eng);
     }
 
     private void InitButtonEvent()
@@ -49,7 +57,12 @@ public class LanguageUI : MonoBehaviour
         return -1;
     }
 
-    private void ChangeLanguage(LanguageType type) => StartCoroutine(ChangeLocalCoroutine((int)type));
+    private void ChangeLanguage(LanguageType type)
+    {
+        int value = (int)type;
+        DataManager.Instance.SetData(DataType.Language, value);
+        StartCoroutine(ChangeLocalCoroutine(value));
+    }
 
     private IEnumerator ChangeLocalCoroutine(int idx)
     {

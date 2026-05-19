@@ -35,6 +35,7 @@ public class DataManager : MonoBehaviour
     #region Helper
     public int GetData(DataType type) => Data.GetData(type);
     public void SetData(DataType type, int value) => Data.SetData(type, value);
+    public bool HasData(DataType type) => Data.HasData(type);
     public int[][] GetBasicLevelField(int level) => Level.GetBasicLevelGrid(level);
     public int GetBasicLevelFieldSize(int level) => Level.GetBasicLevelFieldSize(level);
     public void NextStage() => Data.NextStage();

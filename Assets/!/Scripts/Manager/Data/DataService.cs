@@ -7,7 +7,6 @@ public class DataService
     public void Init()
     {
         Datas = new int[System.Enum.GetValues(typeof(DataType)).Length];
-
         #if UNITY_EDITOR
         //SetData(DataType.Lock, 2);
         //Debug.Log("DataType.Lock : 2로 설정");
@@ -22,12 +21,14 @@ public class DataService
 
     public int GetData(DataType type)
     {
-        if (PlayerPrefs.HasKey(type.ToString()))
+        if (HasData(type) == true)
             return PlayerPrefs.GetInt(type.ToString());
         
         Debug.LogWarning("Not Found Key");
         return default;
     }
+
+    public bool HasData(DataType type) => PlayerPrefs.HasKey(type.ToString());
 
     public void NextStage()
     {
