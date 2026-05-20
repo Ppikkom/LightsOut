@@ -63,7 +63,22 @@ public class BlockCreator
 
     private void SetCameraSize()
     {
-        Camera.main.orthographicSize = FieldSize == 7 ? 8 : 5.5f;
+        switch (FieldSize)
+        {
+            case 3:
+                Camera.main.orthographicSize = 4f;
+                break;
+            case 5:
+                Camera.main.orthographicSize = 5.5f;
+                break;
+            case 7:
+                Camera.main.orthographicSize = 8f;
+                break;
+            default:
+                Camera.main.orthographicSize = 10f;
+                Debug.LogError("FieldSize Error");
+                break;
+        }
     }
 
     private int[,] CreateRandomBlock()
