@@ -7,9 +7,14 @@ public class DataService
     public void Init()
     {
         Datas = new int[System.Enum.GetValues(typeof(DataType)).Length];
-        #if UNITY_EDITOR
-        //SetData(DataType.Lock, 2);
-        //Debug.Log("DataType.Lock : 2로 설정");
+        #if UNITY_ANDROID && !UNITY_EDITOR
+        Debug.Log("And");
+        if(HasData(DataType.Lock) == false) SetData(DataType.Lock, 2);
+        if(HasData(DataType.BGMute) == false) SetData(DataType.BGMute, 0);
+        if(HasData(DataType.SfxMute) == false) SetData(DataType.SfxMute, 0);
+        #elif UNITY_EDITOR
+        Debug.Log("Editor");
+        SetData(DataType.Lock, MAXSTAGE);
         #endif
     }
 

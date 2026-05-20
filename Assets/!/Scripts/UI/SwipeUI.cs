@@ -52,14 +52,14 @@ public class SwipeUI : MonoBehaviour
     {
         content.anchoredPosition3D = Vector3.zero;
 
-        scrollPageValues = new float[transform.childCount];
+        scrollPageValues = new float[content.transform.childCount];
 
         valueDistance = 1f / (scrollPageValues.Length - 1f);
 
         for(int i = 0; i < scrollPageValues.Length; i++)
             scrollPageValues[i] = valueDistance * i;
 
-        maxPage = transform.childCount;
+        maxPage = content.transform.childCount;
 
         scrollBar.value = 0;
     }
@@ -68,6 +68,7 @@ public class SwipeUI : MonoBehaviour
     {
         curPage = idx;
         scrollBar.value = scrollPageValues[idx];
+        
         content.anchoredPosition3D = new Vector3(-180f * idx, 0, 0);
     }
 
@@ -84,17 +85,30 @@ public class SwipeUI : MonoBehaviour
     {
         if(isSwipeMode == true) return;
 
-        #if UNITY_EDITOR
-        if (Input.GetMouseButtonDown(0))
-        {
-            startTouchX = Input.mousePosition.x;
-        }
-        else if (Input.GetMouseButtonUp(0))
-        {
-            endTouchX = Input.mousePosition.x;
-            UpdateSwipe();
-        }
-            
+        #if UNITY_EDITOR || UNITY_STANDALONE
+            if (Input.GetMouseButtonDown(0))
+            {
+                startTouchX = Input.mousePosition.x;
+            }
+            else if (Input.GetMouseButtonUp(0))
+            {
+                endTouchX = Input.mousePosition.x;
+                UpdateSwipe();
+            }
+        #elif UNITY_ANDROID
+            if (Input.touchCount <= 0) return;
+
+            Touch touch = Input.GetTouch(0);
+
+            if (touch.phase == TouchPhase.Began)
+            {
+                startTouchX = touch.position.x;
+            }
+            else if (touch.phase == TouchPhase.Ended)
+            {
+                endTouchX = touch.position.x;
+                UpdateSwipe();
+            }
         #endif
     }
 

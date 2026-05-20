@@ -5,23 +5,25 @@ using UnityEngine.UI;
 
 public class SoundUI : MonoBehaviour
 {
-    private enum SoundType {BG, SFX}
     [SerializeField] private SoundType type;
-
     [SerializeField] private TMP_InputField inputField;
     [SerializeField] private Slider slider;
     [SerializeField] private Image sliderImage;
+    [SerializeField] private Toggle muteToggle;
 
     void OnEnable()
     {
         Init();
         inputField.onEndEdit.AddListener(OnInputConfirm);
         slider.onValueChanged.AddListener(OnSliderValueChanged);
+        muteToggle.onValueChanged.AddListener(ChangeMuteToggle);
     }
 
     void OnDisable()
     {
         inputField.onEndEdit.RemoveListener(OnInputConfirm);
+        slider.onValueChanged.RemoveListener(OnSliderValueChanged);
+        muteToggle.onValueChanged.RemoveListener(ChangeMuteToggle);
     }
 
     private void Init()
@@ -31,6 +33,10 @@ public class SoundUI : MonoBehaviour
 
         int percent = Mathf.RoundToInt(volume * 100f);
         ChangeInputWithoutNotify(percent.ToString());
+
+        int isMute = type == SoundType.BG ? DataManager.Instance.GetData(DataType.BGMute) : DataManager.Instance.GetData(DataType.SfxMute);
+        muteToggle.isOn = System.Convert.ToBoolean(isMute);
+        ChangeMuteToggle(muteToggle.isOn);
     }
 
     private void SetVolume(float volume)
@@ -79,6 +85,12 @@ public class SoundUI : MonoBehaviour
         volume = Mathf.Clamp01(volume);
         CheckSliderImageThreshold(volume);
         slider.SetValueWithoutNotify(volume);
+    }
+
+    private void ChangeMuteToggle(bool flag)
+    {
+        if(type == SoundType.BG) SoundManager.Instance.SetMuteBG(flag);
+        else SoundManager.Instance.SetMuteSfx(flag);
     }
 
 

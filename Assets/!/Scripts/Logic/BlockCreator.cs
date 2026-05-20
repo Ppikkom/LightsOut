@@ -8,6 +8,7 @@ public class BlockCreator
 
     [SerializeField] private GameObject blockPrefab;
     [SerializeField] private Vector2 blockSpacing;
+    [SerializeField] private Vector3 blockOffset;
     [SerializeField] private Sprite activeSprite;
     [SerializeField] private Sprite disabledSprite;
     [SerializeField] private float blockSize;
@@ -89,9 +90,17 @@ public class BlockCreator
         do
         {
             field = LightsOutHelper.CreateRandomBlock(FieldSize);
-        }while(LightsOutSolver.IsSolvable(field) == false);
+        }while(LightsOutSolver.IsSolvable(field) == false || IsAllActiveBlock(field) == true);
         
         return field;
+    }
+
+    private bool IsAllActiveBlock(int[,] field)
+    {
+        for(int i = 0; i < FieldSize; i++)
+            for(int j = 0; j < FieldSize; j++)
+                if(field[i,j] == 0) return false;
+        return true;
     }
 
     private int[,] GetBasicLevelBlock()
@@ -150,7 +159,7 @@ public class BlockCreator
         
         block.SetActiveFlag(field[coord.y, coord.x] == 1); // block.SetActiveFlag(field[coord.x, coord.y] == 1);
         block.SetTransform(_processor.transform, blockSize);
-        block.SetPosition(FieldSize, blockSpacing, blockSize);
+        block.SetPosition(FieldSize, blockSpacing, blockSize, blockOffset);
         block.SetSpriteRenderer(activeSprite, disabledSprite);
         
         _processor.field.Add(coord, block);

@@ -173,12 +173,12 @@ TextureImporter:
       name: Sprites_0
       rect:
         serializedVersion: 2
-        x: 488
-        y: 797
-        width: 128
+        x: 39
+        y: 300
+        width: 127
         height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -195,12 +195,12 @@ TextureImporter:
       name: Sprites_1
       rect:
         serializedVersion: 2
-        x: 718
-        y: 797
+        x: 269
+        y: 300
         width: 128
         height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -217,12 +217,12 @@ TextureImporter:
       name: Sprites_2
       rect:
         serializedVersion: 2
-        x: 456
-        y: 466
-        width: 206
-        height: 208
+        x: 464
+        y: 344
+        width: 40
+        height: 40
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -239,12 +239,12 @@ TextureImporter:
       name: Sprites_3
       rect:
         serializedVersion: 2
-        x: 720
-        y: 466
-        width: 214
-        height: 208
+        x: 543
+        y: 344
+        width: 40
+        height: 40
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -261,12 +261,12 @@ TextureImporter:
       name: Sprites_4
       rect:
         serializedVersion: 2
-        x: 987
-        y: 466
-        width: 210
-        height: 208
+        x: 659
+        y: 306
+        width: 62
+        height: 104
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -283,12 +283,12 @@ TextureImporter:
       name: Sprites_5
       rect:
         serializedVersion: 2
-        x: 1327
-        y: 498
-        width: 62
-        height: 104
+        x: 39
+        y: 65
+        width: 206
+        height: 208
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -305,10 +305,10 @@ TextureImporter:
       name: Sprites_6
       rect:
         serializedVersion: 2
-        x: 820
-        y: 300
-        width: 40
-        height: 40
+        x: 303
+        y: 65
+        width: 215
+        height: 208
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -327,10 +327,10 @@ TextureImporter:
       name: Sprites_7
       rect:
         serializedVersion: 2
-        x: 899
-        y: 300
-        width: 40
-        height: 40
+        x: 570
+        y: 66
+        width: 210
+        height: 208
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

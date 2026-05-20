@@ -14,7 +14,7 @@ public class SizeUp : BaseUIEffect
     public override void OnPlay()
     {
         if(IsTweenRunning() == true) return;
-        if(rect == null) return;
+        if(rect == null || rect.gameObject.activeSelf == true) return;
   
         StartCoroutine(UIOpen());
         

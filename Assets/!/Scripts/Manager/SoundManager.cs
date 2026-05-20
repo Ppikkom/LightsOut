@@ -21,7 +21,7 @@ public class SoundManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
 
-            _sfxSounds = sfxObject.GetComponents<AudioSource>();
+            _sfxAudioSources = sfxObject.GetComponents<AudioSource>();
             InitVolume();
             SceneManager.sceneLoaded += OnSceneLoadMusic;
         }
@@ -36,11 +36,10 @@ public class SoundManager : MonoBehaviour
 
     [Header("SFX")]
     [SerializeField] private GameObject sfxObject;
-    private AudioSource[] _sfxSounds;
+    private AudioSource[] _sfxAudioSources;
     [SerializeField] private AudioClip[] sfxList;
     [Range(0, 1)] public float sfxVolume;
 
-    public int channels;
     public int channelIndex;
 
     private void InitVolume()
@@ -57,13 +56,13 @@ public class SoundManager : MonoBehaviour
         }
         
         bgAudioSource.volume = bgVolume;
-        foreach (var v in _sfxSounds) v.volume = sfxVolume;
+        foreach (var v in _sfxAudioSources) v.volume = sfxVolume;
     }
 
     private void OnSceneLoadMusic(Scene scene, LoadSceneMode mode)
     {
         StopBGM();
-        if(scene.name == "SampleScene") PlayBGM(BgmType.Title);
+        if(scene.name == "Title") PlayBGM(BgmType.Title);
         else if(scene.name == "Play") PlaySfx(SfxType.CountDown);
     }
 
@@ -95,7 +94,19 @@ public class SoundManager : MonoBehaviour
     {
         sfxVolume = Mathf.Clamp01(f);
         PlayerPrefs.SetFloat("SfxVolume", sfxVolume);
-        foreach (var v in _sfxSounds) v.volume = sfxVolume;
+        foreach (var v in _sfxAudioSources) v.volume = sfxVolume;
+    }
+
+    public void SetMuteBG(bool flag)
+    {
+        bgAudioSource.mute = flag;
+        DataManager.Instance.SetData(DataType.BGMute, System.Convert.ToInt16(flag));
+    }
+    public void SetMuteSfx(bool flag)
+    {
+        foreach(var sfx in _sfxAudioSources)
+            sfx.mute = flag;
+        DataManager.Instance.SetData(DataType.SfxMute, System.Convert.ToInt16(flag));
     }
     
     private IEnumerator Playsfx(SfxType type, float delay)
@@ -110,10 +121,10 @@ public class SoundManager : MonoBehaviour
         AudioClip clip = sfxList[index];
 
         if(clip == null) yield break; 
-        if(_sfxSounds == null || _sfxSounds.Length == 0) yield break;
+        if(_sfxAudioSources == null || _sfxAudioSources.Length == 0) yield break;
 
-        AudioSource source = _sfxSounds[channelIndex];
+        AudioSource source = _sfxAudioSources[channelIndex];
         source.PlayOneShot(clip);
-        channelIndex = (channelIndex + 1) % _sfxSounds.Length;
+        channelIndex = (channelIndex + 1) % _sfxAudioSources.Length;
     }
 }

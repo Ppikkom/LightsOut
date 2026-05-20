@@ -25,10 +25,9 @@ public class Block
         isActive = flag;
     }
 
-    public void SetPosition(int fieldSize, Vector2 blockSpacing, float blockSize)
+    public void SetPosition(int fieldSize, Vector2 blockSpacing, float blockSize, Vector3 offset)
     {
-        Vector2Int v = coord - Vector2Int.one * (fieldSize / 2);
-        pos = BlockCoordHelper.GridToWorld(coord, blockSpacing, blockSize, fieldSize);
+        pos = BlockCoordHelper.GridToWorld(coord, blockSpacing, blockSize, fieldSize) + offset;
         trans.position = pos;
     }
 
