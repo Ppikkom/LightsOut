@@ -13,7 +13,7 @@ public class GameOverUI : BaseUI
         objs.SetGridCellSize(2);
         objs.ShowButton(UIButtonType.Restart);
         objs.ShowButton(UIButtonType.Quit);
-        AddButtonEvnet();
+        AddButtonEvent();
     }
 
     public override void HideUI()
@@ -24,7 +24,7 @@ public class GameOverUI : BaseUI
         RemoveButtonEvent();
     }
 
-    protected override void AddButtonEvnet()
+    protected override void AddButtonEvent()
     {
         buttons.OnRestartClicked += Restart;
         buttons.OnQuitClicked += Quit;

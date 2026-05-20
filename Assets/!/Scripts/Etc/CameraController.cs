@@ -18,7 +18,6 @@ public class CameraController : MonoBehaviour
     {
         Camera cam = GetComponent<Camera>();
         referenceOrthographic = cam.orthographicSize;
-        Debug.Log("Size " + referenceOrthographic);
 
         if (!cam.orthographic)
             return;

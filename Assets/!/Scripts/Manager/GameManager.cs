@@ -22,7 +22,11 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
         else
+        {
             Destroy(gameObject);
+            return;
+        }
+            
 
         Application.runInBackground = true;
         GameState = GameState.Title;

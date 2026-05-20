@@ -15,7 +15,7 @@ public class ResultUI : BaseUI
         objs.SetGridCellSize(2, false);
         objs.ShowButton(UIButtonType.Restart, false);
         objs.ShowButton(UIButtonType.Quit, false);
-        AddButtonEvnet();
+        AddButtonEvent();
     }
 
     public override void HideUI()
@@ -36,7 +36,7 @@ public class ResultUI : BaseUI
         highScoreText.text = $"{highScoreLabel} : {DataManager.Instance.GetData(DataType.HighScore)}";
     }
 
-    protected override void AddButtonEvnet()
+    protected override void AddButtonEvent()
     {
         buttons.OnRestartClicked += Restart;
         buttons.OnQuitClicked += Quit;

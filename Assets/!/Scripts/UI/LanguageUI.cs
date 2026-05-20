@@ -71,7 +71,5 @@ public class LanguageUI : MonoBehaviour
         Locale locale = LocalizationSettings.AvailableLocales.Locales[idx];
         LocalizationSettings.SelectedLocale = locale;
         ChangeButtonSprite();
-
-        Debug.Log($"언어 변경 : {locale.LocaleName}");
     }
 }

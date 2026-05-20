@@ -24,7 +24,7 @@ public class PauseUI : BaseUI
         objs.ShowButton(UIButtonType.Resume);
         objs.ShowButton(UIButtonType.Restart);
         objs.ShowButton(UIButtonType.Quit);
-        AddButtonEvnet();
+        AddButtonEvent();
     }
 
     public override void HideUI()
@@ -37,7 +37,7 @@ public class PauseUI : BaseUI
         RemoveButtonEvent();
     }
 
-    protected override void AddButtonEvnet()
+    protected override void AddButtonEvent()
     {
         buttons.OnResumeClicked += Resume;
         buttons.OnRestartClicked += Restart;

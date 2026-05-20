@@ -13,8 +13,15 @@ public class DataManager : MonoBehaviour
         }
     }
 
+    private bool isInitailized = false;
+
     void Awake()
     {
+        if(instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
         if(instance == null)
         {
             instance = this;
@@ -23,7 +30,11 @@ public class DataManager : MonoBehaviour
             InitSubClass();
         }
         else
+        {
             Destroy(gameObject);
+            return;
+        }
+            
     }
     #endregion
 
@@ -48,10 +59,14 @@ public class DataManager : MonoBehaviour
 
     private void InitSubClass()
     {
+        if(isInitailized == true) return;
+
         Data = new DataService();
         Level = new LevelLoader();
 
         Data.Init();
         Level.Init(basicLevels);
+
+        isInitailized = true;
     }
 }

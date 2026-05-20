@@ -61,10 +61,7 @@ public class TimerUI : BaseUI
             SoundManager.Instance.PlayBGM(BgmType.Ingame);
             gameObject.SetActive(false);
         }
-        else if(timerType == TimerType.Main)
-        {
-            Debug.Log("종료");
-        }
+        else if(timerType == TimerType.Main) { }
         
         if(buttons != null && GameManager.Instance.GameState == GameState.Endless) objs.HideUI();
         

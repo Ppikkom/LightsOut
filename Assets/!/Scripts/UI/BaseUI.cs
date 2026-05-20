@@ -12,15 +12,9 @@ public class BaseUI : MonoBehaviour
         gameObject.SetActive(flag);
     }
 
-    protected virtual void AddButtonEvnet()
-    {
-        
-    }
+    protected virtual void AddButtonEvent() { }
 
-    protected virtual void RemoveButtonEvent()
-    {
-        
-    }
+    protected virtual void RemoveButtonEvent() { }
 
     protected virtual void EditText(string s)
     {

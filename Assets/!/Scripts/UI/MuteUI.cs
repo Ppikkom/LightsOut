@@ -5,13 +5,10 @@ public class MuteUI : MonoBehaviour
 {
     [SerializeField] private SoundType type;
     [SerializeField] private Toggle muteToggle;
-    void Start()
-    {
-        InitToggleSprite();
-    }
 
     void OnEnable()
     {
+        InitToggleSprite();
         muteToggle.onValueChanged.AddListener(ChangeMuteToggle);
     }
 
@@ -23,7 +20,7 @@ public class MuteUI : MonoBehaviour
     private void InitToggleSprite()
     {
         int isMute = type == SoundType.BG ? DataManager.Instance.GetData(DataType.BGMute) : DataManager.Instance.GetData(DataType.SfxMute);
-        muteToggle.isOn = System.Convert.ToBoolean(isMute);
+        muteToggle.SetIsOnWithoutNotify(System.Convert.ToBoolean(isMute));
     }
 
     private void ChangeMuteToggle(bool flag)

@@ -14,6 +14,24 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    [Header("BGM")]
+    [SerializeField] private AudioSource bgAudioSource;
+    [SerializeField] private AudioClip[] bgmList;
+    private const string BgKey = "BgVolume";
+    [Range(0, 1)] public float bgVolume;
+
+    [Header("SFX")]
+    [SerializeField] private GameObject sfxObject;
+    private AudioSource[] _sfxAudioSources;
+    [SerializeField] private AudioClip[] sfxList;
+    private const string SfxKey = "SfxVolume";
+    [Range(0, 1)] public float sfxVolume;
+
+    public int channelIndex;
+    private const string TitleKey = "Title";
+    private const string PlayKey = "Play";
+    private bool isInitialized = false;
+
     void Awake()
     {
         if(instance == null)
@@ -21,49 +39,59 @@ public class SoundManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
 
-            _sfxAudioSources = sfxObject.GetComponents<AudioSource>();
-            InitVolume();
-            SceneManager.sceneLoaded += OnSceneLoadMusic;
+            Initialize();
         }
         else
+        {
             Destroy(gameObject);
+            return;
+        }
     }
 
-    [Header("BGM")]
-    [SerializeField] private AudioSource bgAudioSource;
-    [SerializeField] private AudioClip[] bgmList;
-    [Range(0, 1)] public float bgVolume;
+    void OnDestroy()
+    {
+        if(instance == this)
+        {
+            SceneManager.sceneLoaded -= OnSceneLoadMusic;
+            instance = null;
+        }
+        
+    }
 
-    [Header("SFX")]
-    [SerializeField] private GameObject sfxObject;
-    private AudioSource[] _sfxAudioSources;
-    [SerializeField] private AudioClip[] sfxList;
-    [Range(0, 1)] public float sfxVolume;
+    private void Initialize()
+    {
+        if(isInitialized == true) return;
 
-    public int channelIndex;
+        _sfxAudioSources = sfxObject.GetComponents<AudioSource>();
+        InitVolume();
+        SceneManager.sceneLoaded -= OnSceneLoadMusic;
+        SceneManager.sceneLoaded += OnSceneLoadMusic;
+        isInitialized = true;
+    }
 
     private void InitVolume()
     {
-        if (PlayerPrefs.HasKey("BgVolume") == false) // First
+        if (PlayerPrefs.HasKey(BgKey) == false) // First
         {
-            PlayerPrefs.SetFloat("BgVolume", bgVolume);
-            PlayerPrefs.SetFloat("SfxVolume", sfxVolume);
+            PlayerPrefs.SetFloat(BgKey, bgVolume);
+            PlayerPrefs.SetFloat(SfxKey, sfxVolume);
         }
         else
         {
-            bgVolume = PlayerPrefs.GetFloat("BgVolume");
-            sfxVolume = PlayerPrefs.GetFloat("SfxVolume");
+            bgVolume = PlayerPrefs.GetFloat(BgKey);
+            sfxVolume = PlayerPrefs.GetFloat(SfxKey);
         }
         
         bgAudioSource.volume = bgVolume;
         foreach (var v in _sfxAudioSources) v.volume = sfxVolume;
+
     }
 
     private void OnSceneLoadMusic(Scene scene, LoadSceneMode mode)
     {
         StopBGM();
-        if(scene.name == "Title") PlayBGM(BgmType.Title);
-        else if(scene.name == "Play") PlaySfx(SfxType.CountDown);
+        if(scene.name == TitleKey) PlayBGM(BgmType.Title);
+        else if(scene.name == PlayKey) PlaySfx(SfxType.CountDown);
     }
 
     public void PlaySfx(SfxType type, float t = 0) => StartCoroutine(Playsfx(type, t));
@@ -86,14 +114,14 @@ public class SoundManager : MonoBehaviour
     public void SetBGVolume(float f)
     {
         bgVolume = Mathf.Clamp01(f);
-        PlayerPrefs.SetFloat("BgVolume", bgVolume);
+        PlayerPrefs.SetFloat(BgKey, bgVolume);
         bgAudioSource.volume = bgVolume;
     }
 
     public void SetSFXVolume(float f)
     {
         sfxVolume = Mathf.Clamp01(f);
-        PlayerPrefs.SetFloat("SfxVolume", sfxVolume);
+        PlayerPrefs.SetFloat(SfxKey, sfxVolume);
         foreach (var v in _sfxAudioSources) v.volume = sfxVolume;
     }
 

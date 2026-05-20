@@ -13,7 +13,7 @@ public class StageClearUI : BaseUI
         if(DataManager.Instance.IsLastStage() == false) objs.ShowButton(UIButtonType.Next);
         objs.ShowButton(UIButtonType.Restart);
         objs.ShowButton(UIButtonType.Quit);
-        AddButtonEvnet();
+        AddButtonEvent();
     }
 
     public override void HideUI()
@@ -25,7 +25,7 @@ public class StageClearUI : BaseUI
         RemoveButtonEvent();
     }
 
-    protected override void AddButtonEvnet()
+    protected override void AddButtonEvent()
     {
         buttons.OnNextClicked += Next;
         buttons.OnRestartClicked += Restart;

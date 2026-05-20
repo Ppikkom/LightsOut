@@ -24,7 +24,6 @@ public class ScoreUI : BaseUI
     private void CheckGameState()
     {
         GameState state = GameManager.Instance.GameState;
-        Debug.Log(state);
         if(state == GameState.Basic)
             gameObject.SetActive(false);
         else if(state == GameState.Endless)
