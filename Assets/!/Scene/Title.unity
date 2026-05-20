@@ -13694,8 +13694,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SoundManager
   bgAudioSource: {fileID: 1784952038}
   bgmList:
-  - {fileID: 8300000, guid: f183559f81df04646a3ad0ccb7a23a2a, type: 3}
-  - {fileID: 8300000, guid: aab8215d0ebdf844abbb3a643c2d8f28, type: 3}
+  - {fileID: 8300000, guid: 40147031652352744a14b8f8fbbf5c3b, type: 3}
+  - {fileID: 8300000, guid: b24d350d4edd1f0418150d8369b79e92, type: 3}
   bgVolume: 1
   sfxObject: {fileID: 729142025}
   sfxList:
