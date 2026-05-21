@@ -32,7 +32,7 @@ public class BlockCreator
 
         GetField();
         SetCameraSize();
-        SprialAlgorithm();
+        SpiralAlgorithm();
     }
 
     public void RebuildField()
@@ -42,7 +42,7 @@ public class BlockCreator
         ClearField();
         GetField();
         SetCameraSize();
-        SprialAlgorithm();
+        SpiralAlgorithm();
 
         _processor.Effect.ShowBlockEffect();
         SoundManager.Instance.PlaySfx(SfxType.FadeIn);
@@ -112,7 +112,7 @@ public class BlockCreator
         return LightsOutHelper.ConvertTo2dArray(field, FieldSize);
     }
 
-    private void SprialAlgorithm()
+    private void SpiralAlgorithm()
     {
         Vector2Int pos = new Vector2Int( FieldSize / 2, FieldSize / 2);
         
@@ -182,7 +182,7 @@ public class BlockCreator
 
         PlaySfxSound(coord);
 
-        if(CheckAllBlocksActive() == true)
+        if(AlreadyPuzzleClear() == true)
             _processor.Event.OnGameClearEvent();
     }
 
@@ -202,7 +202,7 @@ public class BlockCreator
         _processor.field[coord].OnBlockClicked();
     }
 
-    private bool CheckAllBlocksActive()
+    private bool AlreadyPuzzleClear()
     {
         foreach(var v in _processor.field)
             if(v.Value.isActive == true) return false;

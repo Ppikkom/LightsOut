@@ -17,14 +17,14 @@ public class SoundManager : MonoBehaviour
     [Header("BGM")]
     [SerializeField] private AudioSource bgAudioSource;
     [SerializeField] private AudioClip[] bgmList;
-    private const string BgKey = "BgVolume";
+    private const string BgVolumeKey = "BgVolume";
     [Range(0, 1)] public float bgVolume;
 
     [Header("SFX")]
     [SerializeField] private GameObject sfxObject;
     private AudioSource[] _sfxAudioSources;
     [SerializeField] private AudioClip[] sfxList;
-    private const string SfxKey = "SfxVolume";
+    private const string SfxVolumeKey = "SfxVolume";
     [Range(0, 1)] public float sfxVolume;
 
     public int channelIndex;
@@ -71,15 +71,15 @@ public class SoundManager : MonoBehaviour
 
     private void InitVolume()
     {
-        if (PlayerPrefs.HasKey(BgKey) == false) // First
+        if (PlayerPrefs.HasKey(BgVolumeKey) == false) // First
         {
-            PlayerPrefs.SetFloat(BgKey, bgVolume);
-            PlayerPrefs.SetFloat(SfxKey, sfxVolume);
+            PlayerPrefs.SetFloat(BgVolumeKey, bgVolume);
+            PlayerPrefs.SetFloat(SfxVolumeKey, sfxVolume);
         }
         else
         {
-            bgVolume = PlayerPrefs.GetFloat(BgKey);
-            sfxVolume = PlayerPrefs.GetFloat(SfxKey);
+            bgVolume = PlayerPrefs.GetFloat(BgVolumeKey);
+            sfxVolume = PlayerPrefs.GetFloat(SfxVolumeKey);
         }
         
         bgAudioSource.volume = bgVolume;
@@ -114,14 +114,14 @@ public class SoundManager : MonoBehaviour
     public void SetBGVolume(float f)
     {
         bgVolume = Mathf.Clamp01(f);
-        PlayerPrefs.SetFloat(BgKey, bgVolume);
+        PlayerPrefs.SetFloat(BgVolumeKey, bgVolume);
         bgAudioSource.volume = bgVolume;
     }
 
     public void SetSFXVolume(float f)
     {
         sfxVolume = Mathf.Clamp01(f);
-        PlayerPrefs.SetFloat(SfxKey, sfxVolume);
+        PlayerPrefs.SetFloat(SfxVolumeKey, sfxVolume);
         foreach (var v in _sfxAudioSources) v.volume = sfxVolume;
     }
 

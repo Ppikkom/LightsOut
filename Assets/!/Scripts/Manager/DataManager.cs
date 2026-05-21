@@ -13,7 +13,7 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    private bool isInitailized = false;
+    private bool isInitialized = false;
 
     void Awake()
     {
@@ -59,7 +59,7 @@ public class DataManager : MonoBehaviour
 
     private void InitSubClass()
     {
-        if(isInitailized == true) return;
+        if(isInitialized == true) return;
 
         Data = new DataService();
         Level = new LevelLoader();
@@ -67,6 +67,6 @@ public class DataManager : MonoBehaviour
         Data.Init();
         Level.Init(basicLevels);
 
-        isInitailized = true;
+        isInitialized = true;
     }
 }
