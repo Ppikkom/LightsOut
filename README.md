@@ -1,6 +1,6 @@
 # LightsOut
 
-[한국어] (./README.md) | [日本語](./README.jp.md)
+[한국어](./README.md) | [日本語](./README.jp.md)
 
 Unity 기반 Android용 2D 퍼즐 게임입니다.  
 고전 퍼즐 게임인 **Lights Out**을 기반으로, 정해진 스테이지를 클리어하는 기본 모드와 무작위 퍼즐을 계속 해결하는 무한 모드를 구현했습니다.

@@ -1,6 +1,6 @@
 # LightsOut
 
-[한국어] (./README.md) | [日本語](./README.jp.md)
+[한국어](./README.md) | [日本語](./README.jp.md)
 
 Unity ベースの Android 向け 2D パズルゲームです。  
 古典的なパズルゲームである **Lights Out** をベースに、決められたステージをクリアしていく基本モードと、ランダムなパズルを継続的に解いていく無限モードを実装しました。  
