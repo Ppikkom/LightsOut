@@ -109,6 +109,23 @@ GF(2) 기반 가우스 소거법 수행
 
 ---
 
+## 주요 클래스
+
+| 클래스 | 역할 |
+| --- | --- |
+| `GameProcessor` | 게임 초기화 및 전체 게임 흐름 관리 |
+| `BlockCreator` | 보드 생성, 블록 배치, 클릭 처리, 클리어 판정 |
+| `Block` | 개별 블록의 상태와 클릭 이벤트 관리 |
+| `LightsOutSolver` | 퍼즐의 해결 가능 여부 검증 |
+| `LightsOutHelper` | 보드 생성 및 배열 변환 보조 기능 |
+| `LevelLoader` | CSV 기반 스테이지 데이터 파싱 |
+| `DataService` | 스테이지 진행도, 점수, 설정값 저장 |
+| `DataManager` | 데이터 관련 기능 접근 관리 |
+| `SoundManager` | BGM, SFX, 음소거 및 볼륨 관리 |
+| `GameEvent` | 게임 클리어, 게임 오버, 점수 갱신 처리 |
+
+---
+
 ## 데이터 관리
 
 ### 스테이지 데이터
@@ -165,6 +182,28 @@ GF(2) 기반 가우스 소거법 수행
 | CSV | 스테이지 데이터 관리 |
 
 ---
+
+---
+
+## 스크린샷
+
+> 추후 추가 예정
+
+```text
+docs/images/title.png
+docs/images/howtoplay.png
+docs/images/option.png
+docs/images/gameplay.png
+```
+
+---
+
+## 시연 영상
+
+> 추후 GIF 또는 영상 링크 추가 예정
+
+---
+
 
 ## 기술적 고민
 
