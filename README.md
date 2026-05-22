@@ -187,14 +187,28 @@ GF(2) 기반 가우스 소거법 수행
 
 ## 스크린샷
 
-> 추후 추가 예정
-
-```text
-docs/images/title.png
-docs/images/howtoplay.png
-docs/images/option.png
-docs/images/gameplay.png
-```
+<table>
+  <tr>
+    <td align="center">
+      <img src="./docs/images/title.png" width="400"><br>
+      타이틀
+    </td>
+    <td align="center">
+      <img src="./docs/images/howtoplay.png" width="400"><br>
+      게임 규칙
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="./docs/images/setting.png" width="400"><br>
+      설정
+    </td>
+    <td align="center">
+      <img src="./docs/images/gameplay.png" width="400"><br>
+      인게임
+    </td>
+  </tr>
+</table>
 
 ---
 
